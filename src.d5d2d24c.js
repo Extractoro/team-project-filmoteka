@@ -105,4 +105,4 @@ var t;!function(e,n){"object"==typeof exports&&"object"==typeof module?module.ex
 },{"tui-pagination":"jPMh","tui-pagination/dist/tui-pagination.css":"UYQs","./api/fetch_movies":"hqI7","./base/refs":"rzWj"}],"Focm":[function(require,module,exports) {
 "use strict";require("./sass/main.scss"),require("./js/test"),require("./js/modal"),require("./JS/team-modal"),require("./js/api/fetch_movies"),require("./js/render_movies"),require("./js/pagination");
 },{"./sass/main.scss":"clu1","./js/test":"wWBc","./js/modal":"RSqK","./JS/team-modal":"X75V","./js/api/fetch_movies":"hqI7","./js/render_movies":"hNjL","./js/pagination":"o8lo"}]},{},["Focm"], null)
-//# sourceMappingURL=/team__three-project/src.9758ccfa.js.map
+//# sourceMappingURL=/team__three-project/src.d5d2d24c.js.map
