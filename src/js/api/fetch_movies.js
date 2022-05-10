@@ -49,7 +49,7 @@ export default class FetchApi {
             return movie.data
 
         } catch(error) {
-            Notify.info(`Please enter a search word.`)
+        
         }
     } 
 

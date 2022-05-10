@@ -9,20 +9,13 @@ export const apiFetch = new FetchFilmApi();
 const refs = {
     searchInput: document.querySelector(`.search-input`),
     btnInput: document.querySelector(`.search-button`),
-    gallery: document.querySelector(`.films__gallery`),
-    homeBtn: document.querySelecto(`.#home`)
+    gallery: document.querySelector(`.films__gallery`)
 }
 
 
 refs.searchInput.addEventListener(`input`, debounce(onInputSearch, 500));
 refs.btnInput.addEventListener(`click`, fetchResults);
-refs.homeBtn.addEventListener(`click`, onBtnHome)
 
-console.log(refs.onBtnHome)
-
-function onBtnHome() {
-
-}
 
 function onInputSearch(ev) {
     ev.preventDefault()
