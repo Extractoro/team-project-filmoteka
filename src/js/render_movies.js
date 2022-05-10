@@ -14,14 +14,14 @@ movieApiService.getPopularMovies()
 
 
 
-function renderGalleryFilms(movies, genres) {
+function renderGalleryFilms(movies) {
     const markup = movies
       .map(({ id, poster_path, title, genre_ids, release_date, vote_average }) => {
         
-        return `<li class='gallery-items films__gallery-item id=${id}'>
+        return `<li class="gallery-items films__gallery-item id=${id}">
         <a href="#" class="list-card__link">
             <!-- постер -->
-            <div class="moviе-item__img-container">
+            <div class="movie-item__img-container">
     
                 <img src="https://image.tmdb.org/t/p/w500${poster_path}"
                     alt="${title}"
