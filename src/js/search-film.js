@@ -12,7 +12,7 @@ const refs = {
     gallery: document.querySelector(`.films__gallery`)
 }
 
-
+  
 refs.searchInput.addEventListener(`input`, debounce(onInputSearch, 500));
 refs.btnInput.addEventListener(`click`, fetchResults);
 
@@ -52,9 +52,15 @@ function fetchResults() {
     
 }
 
+
 function renderGallery(films) {
+
+    
+ 
     const markup = films
-    .map(({id, poster_path, title, genre_ids, release_date, vote_average}) => {
+        .map(({ id, poster_path, title, genre_ids, release_date, vote_average }) => {
+
+// console.log(arG)
         return `<li class='gallery-items films__gallery-item id=${id}'>
         <a href="https://image.tmdb.org/t/p/original${poster_path} class="list-card__link">
             <!-- постер -->
@@ -78,9 +84,10 @@ function renderGallery(films) {
         </a>
     </li>`
     })
-    .join('');
+        .join('');
+    
     refs.gallery.innerHTML = markup;
-   
+
 }
 
 
