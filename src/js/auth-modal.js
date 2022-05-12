@@ -1,10 +1,14 @@
 const refs = {
-  openModal: document.querySelector('.open_auth'),
+  openModal: document.querySelector('.open_auth-js'),
   closeModalBtn: document.querySelector('.auth-modal-close'),
   modal: document.querySelector('.auth-modal'),
   body: document.querySelector('body'),
+  openModalWatched: document.getElementById('auth-delete-js'),
+  openModalQueue: document.getElementById('auth-add-js')
 };
 
+refs.openModalWatched.addEventListener('click', openModal);
+refs.openModalQueue.addEventListener('click', openModal);
 refs.openModal.addEventListener('click', openModal);
 
 function closeModal(e) {
@@ -15,6 +19,8 @@ function closeModal(e) {
   scroll();
 }
 function openModal() {
+  refs.openModal.classList.remove('open_auth-js')
+
   modalRemoveHidden();
   scroll();
   refs.modal.addEventListener('click', onBackdropClick);
@@ -42,3 +48,4 @@ function modalRemoveHidden() {
 function modalAddHidden() {
   refs.modal.classList.add('visually-hidden');
 }
+

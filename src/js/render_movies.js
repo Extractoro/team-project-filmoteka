@@ -10,20 +10,21 @@ const containerFilms = document.querySelector(`.films__gallery`)
 
 movieApiService.getPopularMovies()
 .then(({results}) => renderGalleryFilms(results))
-.catch((error => console.log(error)))
+  .catch((error => console.log(error)))
 
-
-
+  
 function renderGalleryFilms(movies, genres) {
+
+  console.log(movies)
     const markup = movies
-      .map(({ id, poster_path, title, genre_ids, release_date, vote_average }) => {
-        
-        return `<li class='gallery-items films__gallery-item id=${id}'>
+      .map(({ genre_ids, id, poster_path, title, release_date, vote_average }) => {
+
+       return `<li class='gallery-items films__gallery-item id="${id}"'>
         <a href="#" class="list-card__link">
             <!-- постер -->
             <div class="moviе-item__img-container">
     
-                <img src="https://image.tmdb.org/t/p/w500${poster_path}"
+                <img class="render-js" src="https://image.tmdb.org/t/p/w500${poster_path}"
                     alt="${title}"
                     class="moviе-item__img"
                     data-id="id=${id}"/>

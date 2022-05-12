@@ -18,8 +18,8 @@ refLibrary.addEventListener('click', event => {
 
  const activeElement = document.querySelector('.current-link');
 
- currentElement.classList.add('current-link');
-
+    currentElement.classList.add('current-link');
+    
  if (activeElement) {
    activeElement.classList.remove('current-link');
    form.classList.add('visually-hidden');
@@ -48,3 +48,7 @@ refHome.addEventListener('click', event => {
 
  }
 })
+
+// Фільтрація
+
+// const Queue = document

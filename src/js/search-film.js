@@ -32,7 +32,7 @@ function onInputSearch(ev) {
     }
     apiFetch.resetPage();
     fetchResults(); 
-    
+   
     //Підключити пагініцію //
 }
 
