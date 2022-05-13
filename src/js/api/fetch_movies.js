@@ -73,4 +73,12 @@ export default class FetchApi {
     set query(newQuery) {
         this.searchQuery = newQuery;
     }
+
+      get movieId() {
+    return this.id;
+  }
+
+  set movieId(newId) {
+    this.id = newId;
+  }
 }

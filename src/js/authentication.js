@@ -1,6 +1,10 @@
 import { initializeApp } from 'firebase/app'
 import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc } from 'firebase/firestore'
-import { getAuth, createUserWithEmailAndPassword,  signInWithEmailAndPassword, getMultiFactorResolver} from 'firebase/auth'
+import {
+    getAuth, createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    getMultiFactorResolver, onAuthStateChanged
+} from 'firebase/auth'
 import Notiflix from 'notiflix';
 import { movieApiService } from './render_movies';
 // export { films };
@@ -22,20 +26,28 @@ initializeApp(firebaseConfig)
 const db = getFirestore()
 const colRef = collection(db, 'films')
 const auth = getAuth();
+console.log(auth.currentUser)
 
 // дані для відмальовування бібліотеки перемінна films 
 // import { films } from "module-name";
 let films = [];
 
-document.getElementById('auth-add-js').addEventListener('click', (genre_ids,poster_path, id, title,  release_date, vote_average ) => {
-
+document.getElementById('add-queue-js').addEventListener('click', (genre_ids,poster_path, id, title,  release_date, vote_average ) => {
+ 
+    // const emailll = onAuthStateChanged(auth, user => {
+    // // console.log('user status changed', user.email)
+    //     console.log('user status changed', user.email)
+    //     console.log(emailll)
+    // return user.email
+    // })
+    
     // genre_ids = document.querySelector('.movie-genre')
     // poster_path = document.querySelector('.render-js')
     // id = document.querySelector('.films__gallery-item')
     // title = document.querySelector('.movie-stats__title')
     // release_date = document.querySelector('.moviе-vote')
     // vote_average = document.querySelector('.movie-vote')
-    
+  
     addDoc(colRef, {
         genre_ids: 28,
         poster_path: '/6DrHO1jr3qVrViUO6s6kFiAGM7.jpg',
@@ -43,8 +55,8 @@ document.getElementById('auth-add-js').addEventListener('click', (genre_ids,post
         title: 'смерть путина',
         release_date: '2022-03-30',
         vote_average: 5,
-        status: 'watched',
-        user: 'kuchmastanislav73@gmail.com'
+        status: 'quene',
+        user: email
     })
         .then(() => {
         Notiflix.Notify.info(`ADD FILM`);
@@ -76,10 +88,11 @@ document.getElementById('auth-add-js').addEventListener('click', (genre_ids,post
         .then((userCredential) => {
             // Signed in 
             const user = userCredential.user;
+            console.log(user)
             // ...
             Notiflix.Notify.info(`You are logged in ${email}`);
             modal.classList.add('visually-hidden');
-            openModal.setAttribute('disabled', true);
+            // openModal.setAttribute('disabled', true);
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -127,14 +140,14 @@ refHome.addEventListener('click', () => {
 //    refHome.setAttribute('disabled', true);
 })
 refLibrary.addEventListener('click', (e) => {
-    // e.preventDefault();
-    // refLibrary.setAttribute('disabled', true);
+    e.preventDefault();
+    
    getDocs(colRef)
     .then((snapshot) => {
         // let films = []
         snapshot.docs.forEach((doc) => {
             films.push({ ...doc.data(), id: doc.id })
-   const markup = films.filter(film => film.status == 'watched' && film.user == 'kuchmastanislav73@gmail.com').map(({ genre_ids,poster_path, id, title,  release_date, vote_average }) => {
+   const markup = films.filter(film => film.status == 'queue' && film.user == 'kuchmastanislav73@gmail.com').map(({ genre_ids,poster_path, id, title,  release_date, vote_average }) => {
         // console.log(films)
         return `<li class='gallery-items films__gallery-item id=${id}'>
         <a href="#" class="list-card__link">
@@ -218,4 +231,112 @@ function renderGalleryFilms(movies, genres) {
     .join('');
     containerFilms.innerHTML = markup;
   }
-//  .map(({id, poster_path, title, genre_ids, release_date, vote_average
+const refWatched = document.getElementById('watched-js')
+const refQueue = document.getElementById('queue-js')
+
+refQueue.addEventListener('click', (e) => {
+
+    // e.preventDefault();
+    refWatched.setAttribute('disabled', true);
+   getDocs(colRef)
+    .then((snapshot) => {
+        // let films = []
+        snapshot.docs.forEach((doc) => {
+            films.push({ ...doc.data(), id: doc.id })
+   const markup = films.filter(film => film.status == 'queue' && film.user == 'kuchmastanislav73@gmail.com').map(({ genre_ids,poster_path, id, title,  release_date, vote_average }) => {
+        // console.log(films)
+        return `<li class='gallery-items films__gallery-item id=${id}'>
+        <a href="#" class="list-card__link">
+            <!-- постер -->
+            <div class="moviе-item__img-container">
+    
+                <img src="https://image.tmdb.org/t/p/w500${poster_path}"
+                    alt="${title}"
+                    class="moviе-item__img"
+                    data-id="id=${id}"/>
+            </div>
+            <div class=""movie-stats">
+                <h2 class="movie-stats__title">${title.toLowerCase()}</h2>
+                <div class="movie-stats__info">
+                    <p class="movie-genre">
+                        ${genre_ids} | ${release_date.split(`-`)[0]}
+                    </p>
+                    <p class="movie-vote">
+                      ${vote_average}
+                    </p>
+                </div>
+            </div>
+        </a>
+    </li>`
+      })
+                .join('');
+   
+            containerFilms.innerHTML = markup;
+    
+        })
+ 
+        // return films
+    })
+    .catch(err => {
+        console.log(err.message)
+       
+    }) 
+ })
+
+
+refWatched.addEventListener('click', (e) => {
+
+    // e.preventDefault();
+    // refWatched.setAttribute('disabled', true);
+   getDocs(colRef)
+    .then((snapshot) => {
+        // let films = []
+        snapshot.docs.forEach((doc) => {
+            films.push({ ...doc.data(), id: doc.id })
+   const markup = films.filter(film => film.status == 'watched' && film.user == 'kuchmastanislav73@gmail.com').map(({ genre_ids,poster_path, id, title,  release_date, vote_average }) => {
+        // console.log(films)
+        return `<li class='gallery-items films__gallery-item id=${id}'>
+        <a href="#" class="list-card__link">
+            <!-- постер -->
+            <div class="moviе-item__img-container">
+    
+                <img src="https://image.tmdb.org/t/p/w500${poster_path}"
+                    alt="${title}"
+                    class="moviе-item__img"
+                    data-id="id=${id}"/>
+            </div>
+            <div class=""movie-stats">
+                <h2 class="movie-stats__title">${title.toLowerCase()}</h2>
+                <div class="movie-stats__info">
+                    <p class="movie-genre">
+                        ${genre_ids} | ${release_date.split(`-`)[0]}
+                    </p>
+                    <p class="movie-vote">
+                      ${vote_average}
+                    </p>
+                </div>
+            </div>
+        </a>
+    </li>`
+      })
+                .join('');
+   
+            containerFilms.innerHTML = markup;
+    
+        })
+ 
+        // return films
+    })
+    .catch(err => {
+        console.log(err.message)
+       
+    }) 
+})
+ 
+
+// onAuthStateChanged(auth, user => {
+//     console.log('user status changed', user.email)
+//     return user.email
+// })
+  // openModal.setAttribute('disabled', true);
+    //  .map(({id, poster_path, title, genre_ids, release_date, vote_average

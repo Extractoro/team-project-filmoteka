@@ -1,3 +1,5 @@
+
+import { movieApiService } from "./render_movies";
 const refs = {
     openModalItem: document.querySelector('[data-action="open-modal"]'),
     closeModalBtn: document.querySelector('[data-action="close-modal"]'),
@@ -35,3 +37,15 @@ function onEscKeyPress(event) {
         onCloseModal();
     }
 }
+
+
+const filmsListRef = document.querySelector('.films__gallery')
+filmsListRef.addEventListener('click', onFilmCardClick);
+
+function onFilmCardClick(e) {
+    const w = movieApiService.id = e.target.closest('li').dataset.id;
+    console.log(movieApiService)
+console.log(w)    
+}
+
+

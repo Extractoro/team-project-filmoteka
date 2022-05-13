@@ -3,8 +3,8 @@ const refs = {
   closeModalBtn: document.querySelector('.auth-modal-close'),
   modal: document.querySelector('.auth-modal'),
   body: document.querySelector('body'),
-  openModalWatched: document.getElementById('auth-delete-js'),
-  openModalQueue: document.getElementById('auth-add-js')
+  openModalWatched: document.getElementById('add-watched-js'),
+  openModalQueue: document.getElementById('add-queue-js')
 };
 
 refs.openModalWatched.addEventListener('click', openModal);
