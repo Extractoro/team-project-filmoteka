@@ -10,4 +10,8 @@ import './js/pagination';
 import './js/auth-modal';
 import './js/authentication';
 import './js/search-film';
+<<<<<<< Updated upstream
 import './js/scroll';
+=======
+import './js/backToTop';
+>>>>>>> Stashed changes
